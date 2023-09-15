@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const connectDB = require("./config/connectDB");
 const user_route = require("./routes/user_route");
+const ErrorHandler = require("./middleware/Error")
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,6 +19,9 @@ app.use("/api/users", user_route);
 app.get("/", (req, resp) => {
     resp.send("Home Page");
 });
+
+// USING CUSTOM MIDDLEWARE
+app.use(ErrorHandler);
 
 const startserver = async () => {
     try{
