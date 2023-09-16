@@ -124,7 +124,18 @@ const LogInUser = asyncHandler(async (req, resp) => {
 
 // -------------------------------------------------------------------------------------
 const LogOut = asyncHandler(async (req, resp) => {
+    // Send http only cookie
+    resp.cookie("Token", "", {
+        path: "/",
+        httpOnly: true,
+        expires: new Date(0),
+        sameSite: "none",
+        secure: true
+    });
 
+    return resp.status(200).json({
+        message: "Succesfully Logged Out",
+    })
 });
 
 // -------------------------------------------------------------------------------------
