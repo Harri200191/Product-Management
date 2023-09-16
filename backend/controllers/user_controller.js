@@ -1,8 +1,7 @@
-// Importing and required fields
+// -------------------------------------------------------------------------------------
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
-
 const asyncHandler = require("express-async-handler"); // to prevent try catch blocks
 const user_model = require("../models/user_model");
 // -------------------------------------------------------------------------------------
@@ -12,6 +11,7 @@ const user_model = require("../models/user_model");
 const generateToken = (id) =>{
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"});
 };
+// -------------------------------------------------------------------------------------
 
 
 // -------------------------------------------------------------------------------------
@@ -71,6 +71,8 @@ const RegisterUser = asyncHandler(async (req, resp) => {
         throw new Error("Invalid User Data");
     }
 });
+// -------------------------------------------------------------------------------------
+
 
 
 // -------------------------------------------------------------------------------------
@@ -85,9 +87,9 @@ const LogInUser = asyncHandler(async (req, resp) => {
     }
 
     // Check if user email already exists
-    const userExists = await user_model.findOne({email});
+    const user = await user_model.findOne({email});
 
-    if (!userExists) {
+    if (!user) {
         resp.status(400);
         throw new Error("User not found please sign up!");
     };
@@ -107,7 +109,7 @@ const LogInUser = asyncHandler(async (req, resp) => {
         secure: true
     });
 
-    if (userExists && passwordisCorrect){
+    if (user && passwordisCorrect){
         resp.status(200).json({
             _id: user.id,
             name: user.name,
@@ -121,6 +123,8 @@ const LogInUser = asyncHandler(async (req, resp) => {
         throw new Error("Invalid Email or Password");
     }
 });
+// -------------------------------------------------------------------------------------
+
 
 // -------------------------------------------------------------------------------------
 const LogOut = asyncHandler(async (req, resp) => {
@@ -137,10 +141,37 @@ const LogOut = asyncHandler(async (req, resp) => {
         message: "Succesfully Logged Out",
     })
 });
+// -------------------------------------------------------------------------------------
+
+// -------------------------------------------------------------------------------------
+const FetchData = asyncHandler(async(req, resp) => {
+    const user = await user_model.findById(req.user._id);
+
+    if (user){
+        resp.status(201).json({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+            photo: user.photo,
+            phone: user.phone,
+            bio: user.bio,
+        })
+    }
+    else{
+        resp.status(400);
+        throw new Error("User not found");
+    }
+
+});
+// -------------------------------------------------------------------------------------
+
 
 // -------------------------------------------------------------------------------------
 module.exports = {
     RegisterUser,
     LogInUser,
     LogOut,
+    FetchData,
 };
+// -------------------------------------------------------------------------------------

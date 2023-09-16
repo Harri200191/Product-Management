@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./config/connectDB");
 const user_route = require("./routes/user_route");
 const ErrorHandler = require("./middleware/Error")
+const Protect = require("./middleware/AuthMiddleware");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
