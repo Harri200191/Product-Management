@@ -1,5 +1,6 @@
 // We will use this anywhere we get an error
 const ErrorHandler = (err, req, resp, next) => {
+
     const statuscode = resp.statusCode ? resp.statusCode : 500;
     resp.status(statuscode);
 
@@ -7,6 +8,7 @@ const ErrorHandler = (err, req, resp, next) => {
         message: err.message,
         stack : process.env.NODE_ENV === 'deployment' ? err.stack : null
     })
+
 };
 
 
