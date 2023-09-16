@@ -1,7 +1,16 @@
+// Importing and required fields
 const express = require("express");
+const jwt = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
+
 const asyncHandler = require("express-async-handler"); // to prevent try catch blocks
 const user_model = require("../models/user_model");
-const bcryptjs = require("bcryptjs");
+
+
+// This is used to ensure user logs out automatically after 1 day of logging in
+const generateToken = (id) =>{
+    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"});
+};
 
 const RegisterUser = asyncHandler(async (req, resp) => {
     const {name, email, password} = req.body;
@@ -32,13 +41,26 @@ const RegisterUser = asyncHandler(async (req, resp) => {
         password: password
     });
 
+    // Generate token
+    const token = generateToken(user._id);
+
+    // Send http only cookie
+    resp.cookie("Token", token, {
+        path: "/",
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 86400),
+        sameSite: "none",
+        secure: true
+    });
+ 
     // Get the details of the user when account is created
     if (user){
         resp.status(201).json({
             _id: user.id,
             name: user.name,
             email: user.email,
-            password: user.password
+            password: user.password,
+            token
         })
     }
     else{

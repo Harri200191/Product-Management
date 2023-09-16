@@ -56,7 +56,7 @@ const user_schema = mongoose.Schema(
 );
 
 // Encrypt password before saving to DB
-user_schema.pre("save", async (next) =>{
+user_schema.pre("save", async function (next){
     // This ensures that the password is only hashed when it is modified
     if (!this.isModified("password")){
         return next();
