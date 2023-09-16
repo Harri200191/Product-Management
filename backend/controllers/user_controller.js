@@ -5,13 +5,16 @@ const bcryptjs = require("bcryptjs");
 
 const asyncHandler = require("express-async-handler"); // to prevent try catch blocks
 const user_model = require("../models/user_model");
+// -------------------------------------------------------------------------------------
 
-
+// -------------------------------------------------------------------------------------
 // This is used to ensure user logs out automatically after 1 day of logging in
 const generateToken = (id) =>{
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"});
 };
 
+
+// -------------------------------------------------------------------------------------
 const RegisterUser = asyncHandler(async (req, resp) => {
     const {name, email, password} = req.body;
 
@@ -69,6 +72,64 @@ const RegisterUser = asyncHandler(async (req, resp) => {
     }
 });
 
+
+// -------------------------------------------------------------------------------------
+// Login user
+const LogInUser = asyncHandler(async (req, resp) => {
+    const {email, password} = req.body;
+
+    // Validation if user enters an empty string
+    if (!password || !email){
+        resp.status(400);
+        throw new Error("Please fill in all the required fields.");
+    }
+
+    // Check if user email already exists
+    const userExists = await user_model.findOne({email});
+
+    if (!userExists) {
+        resp.status(400);
+        throw new Error("User not found please sign up!");
+    };
+
+    // Validation if user enters password and it is correct or not
+    const passwordisCorrect = await bcryptjs.compare(password, user.password);
+
+    // Generate token
+    const token = generateToken(user._id);
+
+    // Send http only cookie
+    resp.cookie("Token", token, {
+        path: "/",
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 86400),
+        sameSite: "none",
+        secure: true
+    });
+
+    if (userExists && passwordisCorrect){
+        resp.status(200).json({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+            token
+        });
+    }
+    else{
+        resp.status(400);
+        throw new Error("Invalid Email or Password");
+    }
+});
+
+// -------------------------------------------------------------------------------------
+const LogOut = asyncHandler(async (req, resp) => {
+
+});
+
+// -------------------------------------------------------------------------------------
 module.exports = {
     RegisterUser,
+    LogInUser,
+    LogOut,
 };
