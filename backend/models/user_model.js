@@ -65,6 +65,7 @@ user_schema.pre("save", async (next) =>{
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(this.password, salt);
     this.password = hashedPassword;
+    next();
 });
 
 const user_model = mongoose.model("User", user_schema);
