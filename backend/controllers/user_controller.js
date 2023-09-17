@@ -166,6 +166,24 @@ const FetchData = asyncHandler(async(req, resp) => {
 });
 // -------------------------------------------------------------------------------------
 
+// -------------------------------------------------------------------------------------
+const LoginStatus = asyncHandler(async(req, resp) => {
+    const token = req.cookies.Token;
+
+    if (!token){
+        return resp.json(false);
+    }
+   
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (verified){
+        return resp.json(true);
+    }
+    else{
+        return resp.json(false);
+    }
+
+});
+// -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
 module.exports = {
@@ -173,5 +191,6 @@ module.exports = {
     LogInUser,
     LogOut,
     FetchData,
+    LoginStatus,
 };
 // -------------------------------------------------------------------------------------
