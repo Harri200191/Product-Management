@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const asyncHandler = require("express-async-handler"); // to prevent try catch blocks
 const user_model = require("../models/user_model");
+const token_model = require("../models/tokenModel");
 // -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
