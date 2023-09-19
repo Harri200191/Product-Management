@@ -1,6 +1,6 @@
 const express = require("express");
 const user_model = require("../models/user_model");
-const {RegisterUser, UpdateUser, ChangePassw, LogInUser, LogOut, FetchData, LoginStatus} = require("../controllers/user_controller");
+const {RegisterUser, UpdateUser, forgotPassword, ChangePassw, LogInUser, LogOut, FetchData, LoginStatus} = require("../controllers/user_controller");
 const protect = require("../middleware/AuthMiddleware");
 
 const router = express.Router();
@@ -13,5 +13,6 @@ router.get("/FetchData", protect, FetchData);
 router.get("/LoggedIn", LoginStatus);
 router.patch("/UpdateUser", protect, UpdateUser);
 router.patch("/ChangePass", protect, ChangePassw);
+router.post("/ForgotPassword", forgotPassword);
 
 module.exports = router;
