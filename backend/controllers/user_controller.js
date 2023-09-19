@@ -187,7 +187,7 @@ const LoginStatus = asyncHandler(async(req, resp) => {
 
 // -------------------------------------------------------------------------------------
 const UpdateUser = asyncHandler(async(req, resp) => {
-    const user = await user_model.UserfindbyId(req.user._id);
+    const user = await user_model.findById(req.user._id);
 
     if (user){
         const {name, email, photo, phone, bio} = user;
@@ -215,6 +215,37 @@ const UpdateUser = asyncHandler(async(req, resp) => {
 });
 // -------------------------------------------------------------------------------------
 
+// -------------------------------------------------------------------------------------
+const ChangePassw = asyncHandler(async(req, resp) => {
+    const user = await user_model.findById(req.user._id);
+    const {oldPassword, password} = req.body
+
+    if(user){
+        if (!oldPassword || !password){
+            resp.status(404);
+            throw new Error("Please add old and new password");
+        }
+
+        // check if old password exists in database
+        const passwordiscorrect = await bcryptjs.compare(oldPassword, user.password);
+        
+        //Save new password
+        if (passwordiscorrect){
+            user.password = password;
+            await user.save();
+            resp.status(200).send("Password Changed Successfully");
+        }
+        else{
+            resp.status(404);
+            throw new Error("Passwords do not match");
+        }
+    }
+    else{
+        resp.status(404);
+        throw new Error("User not found");
+    }
+});
+// -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
 module.exports = {
@@ -224,5 +255,6 @@ module.exports = {
     FetchData,
     LoginStatus,
     UpdateUser,
+    ChangePassw,
 };
 // -------------------------------------------------------------------------------------
