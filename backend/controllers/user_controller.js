@@ -187,9 +187,32 @@ const LoginStatus = asyncHandler(async(req, resp) => {
 
 // -------------------------------------------------------------------------------------
 const UpdateUser = asyncHandler(async(req, resp) => {
-    
-});
+    const user = await user_model.UserfindbyId(req.user._id);
 
+    if (user){
+        const {name, email, photo, phone, bio} = user;
+        user.email = email // Can't change email 
+        user.name = req.body.name || name; // second option if no name added by user
+        user.photo = req.body.photo || photo;
+        user.phone = req.body.phone || phone;
+        user.bio = req.body.bio || bio;
+
+        const updateduser = await user.save();
+        resp.status(200).json({
+            _id: updateduser.id,
+            name: updateduser.name,
+            email: updateduser.email,
+            password: updateduser.password,
+            photo: updateduser.photo,
+            phone: updateduser.phone,
+            bio: updateduser.bio,
+        })
+    }
+    else{
+        resp.status(404);
+        throw new Error("User not found");
+    };
+});
 // -------------------------------------------------------------------------------------
 
 
