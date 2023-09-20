@@ -6,6 +6,7 @@ const asyncHandler = require("express-async-handler"); // to prevent try catch b
 const user_model = require("../models/user_model");
 const token_model = require("../models/tokenModel");
 const crypto = require("crypto");
+const sendEmail = require("../utils/sendEmail");
 // -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
@@ -279,7 +280,23 @@ const ForgotPassword = asyncHandler(async(req, resp) => {
         
         <a href=${reset_url} clicktracking=off>${reset_url}</a>
         
-        <p>Happy Surfing!</p>`
+        <p>Happy Surfing!</p>`;
+
+        const subject = "Password reset request";
+        const send_to = user.email;
+        const sent_from = process.env.EMAIL_USER;
+
+        try{
+            await sendEmail(subject, message, send_to, sent_from);
+            resp.status(200).json({
+                success: true, 
+                message:"reset email "}
+            );
+        }
+        catch(err){
+            resp.status(500);
+            throw new Error("Email not send. Try again!");
+        };
     }
     else{
         resp.status(404);
