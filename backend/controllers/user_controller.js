@@ -5,6 +5,7 @@ const bcryptjs = require("bcryptjs");
 const asyncHandler = require("express-async-handler"); // to prevent try catch blocks
 const user_model = require("../models/user_model");
 const token_model = require("../models/tokenModel");
+const crypto = require("crypto");
 // -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
@@ -257,7 +258,28 @@ const ForgotPassword = asyncHandler(async(req, resp) => {
         // create reset token to send in email
         let reset_token = crypto.randomBytes(32).toString("hex") + user._id;
 
+        // Hash token before saving in db
+        const hashed_token = crypto.createHash("sha256").update(reset_token).digest("hex");
+
+        // save token to db
+        await new token_model({
+            userId: user._id,
+            token: hashed_token,
+            createdAt: Date.now(),
+            expiresAt: Date.now() + 20 * (60*1000)
+        }).save();
+
+        // construct a reset url
+        const reset_url = `${process.env.FRONTEND_URL}/resetpassword/${reset_token}`
+
+        // message
+        const message = `<h2>Hi ${user.name}!</h2>
+        <p>Please use the url below to reset your password.</p>
+        <p>This link is valid for only 20 minutes</p>
         
+        <a href=${reset_url} clicktracking=off>${reset_url}</a>
+        
+        <p>Happy Surfing!</p>`
     }
     else{
         resp.status(404);
