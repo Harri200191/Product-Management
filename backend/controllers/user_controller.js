@@ -250,6 +250,19 @@ const ChangePassw = asyncHandler(async(req, resp) => {
 
 // -------------------------------------------------------------------------------------
 const ForgotPassword = asyncHandler(async(req, resp) => {
+    const {email} = req.body;
+    const user = await user_model.findOne({email});
+
+    if(user){
+        // create reset token to send in email
+        let reset_token = crypto.randomBytes(32).toString("hex") + user._id;
+
+        
+    }
+    else{
+        resp.status(404);
+        throw new Error("User not found");
+    }
 
 });
 // -------------------------------------------------------------------------------------
