@@ -1,6 +1,6 @@
 const express = require("express");
 const user_model = require("../models/user_model");
-const {RegisterUser, UpdateUser, forgotPassword, ChangePassw, LogInUser, LogOut, FetchData, LoginStatus} = require("../controllers/user_controller");
+const {RegisterUser, UpdateUser, resetPassword, forgotPassword, ChangePassw, LogInUser, LogOut, FetchData, LoginStatus} = require("../controllers/user_controller");
 const protect = require("../middleware/AuthMiddleware");
 
 const router = express.Router();
@@ -14,5 +14,6 @@ router.get("/LoggedIn", LoginStatus);
 router.patch("/UpdateUser", protect, UpdateUser);
 router.patch("/ChangePass", protect, ChangePassw);
 router.post("/ForgotPassword", forgotPassword);
+router.put("/ResetPassword/:resetToken", resetPassword);
 
 module.exports = router;

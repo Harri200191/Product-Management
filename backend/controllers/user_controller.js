@@ -251,11 +251,17 @@ const ChangePassw = asyncHandler(async(req, resp) => {
 // -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
-const ForgotPassword = asyncHandler(async(req, resp) => {
+const forgotPassword = asyncHandler(async(req, resp) => {
     const {email} = req.body;
     const user = await user_model.findOne({email});
 
     if(user){
+        //  Delete Token if it exists in the database
+        let token = await token_model.findOne({userId: user._id});
+        if (token){
+            await token_model.deleteOne()
+        }
+
         // create reset token to send in email
         let reset_token = crypto.randomBytes(32).toString("hex") + user._id;
 
@@ -283,7 +289,7 @@ const ForgotPassword = asyncHandler(async(req, resp) => {
         <p>Happy Surfing!</p>`;
 
         const subject = "Password reset request";
-        const send_to = user.email;
+        const send_to = email;
         const sent_from = process.env.EMAIL_USER;
 
         try{
@@ -307,6 +313,38 @@ const ForgotPassword = asyncHandler(async(req, resp) => {
 // -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
+const resetPassword = asyncHandler(async(req, resp) => {
+    const {password} = req.body;
+    const {resetToken} = req.params;
+
+    // Hash again as db contains an already hashed code
+    const hashed_token = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+    // Find Token in db
+    const userToken = await token_model.findOne({
+        token: hashed_token,
+        expiresAt: {$gt: Date.now()}
+
+    });
+
+    if (!userToken){
+        resp.status(404);
+        throw new Error("User token found");
+    }
+    
+    // Find user
+    const user = await user_model.findOne({_id: userToken.userId});
+    user.password = password;
+
+    await user.save();
+    resp.status(200).json({
+        message: "Password Reset Successful"
+    })
+});
+// -------------------------------------------------------------------------------------
+
+
+// -------------------------------------------------------------------------------------
 module.exports = {
     RegisterUser,
     LogInUser,
@@ -315,6 +353,7 @@ module.exports = {
     LoginStatus,
     UpdateUser,
     ChangePassw,
-    ForgotPassword,
+    forgotPassword,
+    resetPassword,
 };
 // -------------------------------------------------------------------------------------
