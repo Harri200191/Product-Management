@@ -8,6 +8,7 @@ const path = require("path");
 const connectDB = require("./config/connectDB");
 const user_route = require("./routes/user_route");
 const product_route = require("./routes/product_route");
+const contact_route = require("./routes/contact_route");
 const ErrorHandler = require("./middleware/Error")
 const Protect = require("./middleware/AuthMiddleware");
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json())
 app.use("/api/users", user_route);
 app.use("/api/products", product_route);
+app.use("/api/contact", contact_route);
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // To define route for uploading images
 
 app.get("/", (req, resp) => {
