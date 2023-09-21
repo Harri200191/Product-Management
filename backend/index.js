@@ -22,7 +22,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json())
 app.use("/api/users", user_route);
 app.use("/api/products", product_route);
-app.use("/uploads", express.static(path.join(__dirname, "uploads"))) // To define route for uploading images
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // To define route for uploading images
 
 app.get("/", (req, resp) => {
     resp.send("Home Page");
