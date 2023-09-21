@@ -4,6 +4,7 @@ const asyncHandler = require("express-async-handler"); // to prevent try catch b
 const user_model = require("../models/user_model");
 const token_model = require("../models/tokenModel");
 const product_model = require("../models/productModel");
+const {fileSizeFormatter} = require("../utils/fileUpload")
 // -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
@@ -16,6 +17,20 @@ const CreateProduct = asyncHandler(async (req, resp) =>{
         throw new Error("Please fill in all fields");
     };
 
+    // Handle image file upload
+    let filedata = {};
+    
+    // if image uploaded through requested data
+    if(req.file){
+        filedata = {
+            fileName: req.file.originalname,
+            filePath: req.file.path,
+            fileType: req.file.mimetype,
+            fileSize: fileSizeFormatter(req.file.size, 2)
+        }
+    };
+
+    // handle adding data to new db collection
     const product = await product_model.create({
         user: req.user.id,
         name,
@@ -23,7 +38,8 @@ const CreateProduct = asyncHandler(async (req, resp) =>{
         category,
         quantity,
         price,
-        description
+        description,
+        image: filedata
     });
 
     resp.status(201).json(product);
