@@ -5,7 +5,7 @@ const user_model = require("../models/user_model");
 const token_model = require("../models/tokenModel");
 const product_model = require("../models/productModel");
 const { fileSizeFormatter } = require("../utils/fileUpload");
-const cloudinary = upload("cloudinary").v2;
+const cloudinary = require("cloudinary").v2;
 // -------------------------------------------------------------------------------------
 
 // -------------------------------------------------------------------------------------
@@ -60,8 +60,33 @@ const CreateProduct = asyncHandler(async (req, resp) => {
 });
 // -------------------------------------------------------------------------------------
 
+
+// Get all Products
+const getProducts = asyncHandler(async (req, resp) => {
+    const products = await product_model.find({ user: req.user.id }).sort("-createdAt");
+    resp.status(200).json(products);
+});
+  
+// Get single product
+const getProduct = asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    // if product doesnt exist
+    if (!product) {
+        res.status(404);
+        throw new Error("Product not found");
+    }
+    // Match product to its user
+    if (product.user.toString() !== req.user.id) {
+        res.status(401);
+        throw new Error("User not authorized");
+    }
+    res.status(200).json(product);
+});
+
 // -------------------------------------------------------------------------------------
 module.exports = {
   CreateProduct,
+  getProduct,
+  getProducts,
 };
 // -------------------------------------------------------------------------------------
