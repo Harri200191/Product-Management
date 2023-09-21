@@ -68,6 +68,27 @@ const RegisterUser = asyncHandler(async (req, resp) => {
             password: user.password,
             token
         })
+
+        // Welcome email
+        const message = `
+        <h2>Hello ${user.name}!</h2>
+        <p>Welcome to our inventory management system!</p>  
+        <p>We hope you have a great experience!</p>
+
+        <p>Regards...</p>
+        `;
+
+        const subject = "Welcome!";
+        const send_to = user.email;
+        const sent_from = process.env.EMAIL_USER;
+
+        try {
+            await sendEmail(subject, message, send_to, sent_from);
+            resp.status(200).json({ success: true, message: "Reset Email Sent" });
+        } catch (error) {
+            resp.status(500);
+            throw new Error("Email not sent, please try again");
+        }
     }
     else{
         resp.status(400);
