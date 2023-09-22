@@ -1,6 +1,8 @@
 // Auth is used to make one scss file for all other files of jsx.
 .auth {
-    min-height: 80vh;
+    max-width: 10000px;
+    background-color: #09004c;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +17,9 @@
       animation: slide-up 0.5s ease;
       background-color: #fff;
       h2 {
-        color: var(--color-danger);
+        padding-top: 10px;
+        padding-bottom: 5px;
+        color: var(--dark-blue);
         text-align: center;
       }
       form {
@@ -40,7 +44,7 @@
           }
   
           &:focus:invalid {
-            border-bottom: 3px solid #ff7730;
+            border-bottom: 3px solid #4830ff;
           }
         }
         .links {

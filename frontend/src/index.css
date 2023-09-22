@@ -319,6 +319,7 @@ p {
 }
 
 .--btn-primary {
+  font-size: large;
   color: #fff;
   background: #007bff;
 }
@@ -497,4 +498,63 @@ a:hover {
   color: #fff;
   background-color: var(--light-blue);
   height: 100%;
+}
+
+.--mybtn{
+  margin-top: 5px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  padding: 8px 10px;
+  width: 100%;
+  font-size: large;
+  color: #fff;
+  background: #000000d0;
+
+}
+
+.--mybtn:hover {
+  transform: translateY(-2px);
+}
+
+.--custom-p{
+  color: #003874;
+  margin-bottom: 10px;
+  margin-top: 8px;
+  font-weight: 400;
+}
+
+.--custom-p:hover {
+  transform: translateY(-2px);
+}
+
+.--mybtn2{
+  margin-top: 5px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  padding: 8px 10px;
+  width: 100%;
+  font-size: large;
+  color: #fff;
+  background: #500000d0;
+
+}
+
+.--mybtn2:hover {
+  transform: translateY(-2px);
 }
