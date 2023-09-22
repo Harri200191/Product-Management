@@ -1,5 +1,6 @@
 .home {
-    background-color: #030b6b;
+    //background-color: #030b6b;
+    background-color: #00406a;
     min-height: 100vh;
   
     & nav {
@@ -31,6 +32,7 @@
   }
   
   .hero-text {
+    padding-top: 50px;
     width: 50%;
     & > * {
       color: #fff;

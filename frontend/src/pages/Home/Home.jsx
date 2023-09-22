@@ -1,7 +1,8 @@
 import React from 'react'
 import {BiSolidDish} from "react-icons/bi";
 import { Link } from 'react-router-dom';
-import "./Home.scss"
+import "./Home.scss";
+import heroImg from "../../assets/inv-img.png"
 
 const Home = () => {
   return (
@@ -33,21 +34,26 @@ const Home = () => {
             Inventory system to control and manage proucts in the warehouse in
             real timeand integrated to make it easier to develop your business.
           </p>
+          <p>
+            Lotus Management is a powerful and user-friendly Product Management System (PMS) website designed to streamline and enhance the entire product lifecycle management process. Whether you are a startup founder, a product manager at a large corporation, or a small business owner, Lotus Management is your go-to platform for efficiently managing your products from ideation to retirement. 
+          </p>
+          <p>
+            Lotus itself is a brand that manufactures world class chafing dish which are not only sold locally but also exported to other countries to big brand names! Suffice to say that they themselves being the pioneer of this management system is enough to vouch for the credibility of this application!
+          </p>
           <div className="hero-buttons">
             <button className="--btn --btn-secondary">
               <Link to="/dashboard">Free Trial 1 Month</Link>
             </button>
           </div>
           <div className="--flex-start">
-            <NumberText num="1" text="Brand Owners" />
-            <NumberText num="1" text="Active Users" />
-            <NumberText num="0" text="Partners" />
+            <NumberText num="1K" text="Brand Owners" />
+            <NumberText num="1K" text="Active Users" />
+            <NumberText num="50+" text="Partners" />
           </div>
         </div>
 
         <div className='hero-image'>
-
-          
+          <img src={heroImg} alt="Inventory" />
         </div>  
 
       </section>
