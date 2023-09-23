@@ -26,16 +26,20 @@
     // border-bottom: 2px solid #ccc;
     transition: all 0.5s;
     background-color: var(--dark-blue);
-    height: 70px;
+    height: 60px;
   }
   .logo {
+    margin-top: 7px;
     font-size: 30px;
     color: var(--color-white);
   }
+  .logo:hover {
+    transform: scale(1.2);
+  }
   .bars {
     display: flex;
-    font-size: 25px;
-    margin-left: 70px;
+    font-size: 30px;
+    margin-left: 130px;
     cursor: pointer;
     color: var(--color-white);
     transition: all 0.3s;
