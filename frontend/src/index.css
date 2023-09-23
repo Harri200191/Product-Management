@@ -336,6 +336,7 @@ p {
 }
 
 .--btn-custom {
+  margin-bottom: 10px;
   color: #fff;
   background: var(--color-custom);
 }
