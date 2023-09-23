@@ -20,6 +20,7 @@
   --color-primary: #007bff;
   --color-success: #28a745;
   --color-danger: orangered;
+  --color-custom: #0003bf;
 }
 
 * {
@@ -283,6 +284,7 @@ p {
   padding: 1rem 0;
 }
 .--py2 {
+  margin-top: 20px;
   padding: 2rem 0;
 }
 .--px {
@@ -332,6 +334,12 @@ p {
   color: #fff;
   background: orangered;
 }
+
+.--btn-custom {
+  color: #fff;
+  background: var(--color-custom);
+}
+
 
 .--btn-success {
   color: #fff;
@@ -557,4 +565,41 @@ a:hover {
 
 .--mybtn2:hover {
   transform: translateY(-2px);
+}
+
+
+.boxes{
+  margin-top: 459px;
+}
+
+.rectangle {
+  width: 230px; /* Width of the rectangles */
+  height: 20px; /* Height of the rectangles */
+}
+
+/* Different colors for each rectangle */
+.red {
+  background-color: rgb(0, 2, 91);
+}
+
+.green {
+  background-color: rgb(0, 170, 197);
+}
+
+.blue {
+  background-color: blue;
+}
+
+
+.footer{
+  font-size: 15px;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  width : 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+  padding: 2rem 0;
 }

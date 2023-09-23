@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
+
   return (
     <div className="--pad header">
       <div className="--flex-between">
@@ -10,9 +11,11 @@ const Header = () => {
           <span className="--fw-thin">Welcome, </span>
           <span className="--color-danger">Haris Rehman!</span>
         </h3>
-        <button className="--btn --btn-danger">
-          Logout
-        </button>
+        <NavLink to={"/"}>
+          <button className="--btn --btn-custom">
+            Logout
+          </button>
+        </NavLink>
       </div>
       <hr />
     </div>
