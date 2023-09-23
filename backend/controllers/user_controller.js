@@ -75,7 +75,8 @@ const RegisterUser = asyncHandler(async (req, resp) => {
         <p>Welcome to our inventory management system!</p>  
         <p>We hope you have a great experience!</p>
 
-        <p>Regards...</p>
+        <p>Regards.</p>
+        <p>Harry Team.</p>
         `;
 
         const subject = "Welcome!";
@@ -316,7 +317,8 @@ const forgotPassword = asyncHandler(async(req, res) => {
   
         <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
   
-        <p>Regards...</p>
+        <p>Regards.</p>
+        <p>Harry Team.</p>
       `;
     const subject = "Password Reset Request";
     const send_to = user.email;
