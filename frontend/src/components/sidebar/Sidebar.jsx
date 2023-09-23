@@ -43,6 +43,7 @@ const Sidebar = ({ children }) => {
 
       <main
         style={{
+          paddingLeft: isOpen ? "230px" : "60px",
           transition: "all .5s",
         }}
       >

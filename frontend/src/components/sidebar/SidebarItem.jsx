@@ -10,11 +10,7 @@ const SidebarItem = ({ item, isOpen }) => {
 
   if (item.childrens) {
     return (
-      <div
-        className={
-          expandMenu ? "sidebar-item s-parent open" : "sidebar-item s-parent"
-        }
-      >
+      <div className={ expandMenu ? "sidebar-item s-parent open" : "sidebar-item s-parent" }>
         <div className="sidebar-title">
           <span>
             {item.icon && <div className="icon">{item.icon}</div>}
