@@ -1,7 +1,8 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import Card from "../../card/Card";
+import Card from "../../components/card/Card";
+import { FiX } from 'react-icons/fi';
 
 import "./productForm.scss";
 
@@ -14,6 +15,7 @@ const ProductForm = ({
   handleInputChange,
   handleImageChange,
   saveProduct,
+  handleClearImage,
 }) => {
   return (
     <div className="add-product">
@@ -27,16 +29,21 @@ const ProductForm = ({
             <input
               type="file"
               name="image"
+              id="image-input"
               onChange={(e) => handleImageChange(e)}
             />
 
-            {imagePreview != null ? (
-              <div className="image-preview">
-                <img src={imagePreview} alt="product" />
-              </div>
-            ) : (
-              <p>No image set for this poduct.</p>
-            )}
+            {imagePreview ? (
+                <div className="image-container">
+                    <img src={imagePreview} alt="Product" />
+                    <button className="clear-button" onClick={handleClearImage}>
+                    <FiX /> Clear
+                    </button>
+                </div>
+                ) : (
+                <p>No image selected</p>
+                )}
+
           </Card>
           <label>Product Name:</label>
           <input
@@ -74,7 +81,7 @@ const ProductForm = ({
             onChange={handleInputChange}
           />
 
-          <label>Product Description:</label>
+          <label className="custom">Product Description:</label>
           <ReactQuill
             theme="snow"
             value={description}
@@ -84,12 +91,18 @@ const ProductForm = ({
           />
 
           <div className="--my">
-            <button type="submit" className="--btn --btn-primary">
+            <button type="submit" className="--mybtnnew" >
               Save Product
             </button>
           </div>
         </form>
       </Card>
+      {imagePreview && (
+            <div className="image-preview">
+                <h2>Image Preview</h2>
+                <img src={imagePreview} alt="Selected" />
+            </div>
+        )}
     </div>
   );
 };

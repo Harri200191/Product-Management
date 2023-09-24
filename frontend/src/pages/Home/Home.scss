@@ -28,7 +28,7 @@
   .hero {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
   }
   
   .hero-text {
@@ -46,11 +46,15 @@
     }
   }
   .hero-image {
+    display: flex;
+    justify-content: center;
+    scale: 2.4;
+    float: right;
     width: 50%;
   }
   @media screen and (max-width: 600px) {
     .hero {
-      flex-direction: column;
+      flex-direction: flex-end;
     }
   
     .hero-text {
@@ -63,8 +67,9 @@
       text-align: center;
     }
     .hero-image {
+      justify-content: flex-end;
       width: 100%;
-      &img {
+      &img { 
         width: 100%;
       }
     }

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
-import ProductForm from "../../components/product/productForm/productForm";
+import ProductForm from "../../components/product/productForm";
 import {
   createProduct,
   selectIsLoading,
-} from "../../redux/features/product/productSlice";
+} from "../../redux/features/products/productSlice";
 
 const initialState = {
   name: "",
@@ -34,8 +34,21 @@ const AddProduct = () => {
   };
 
   const handleImageChange = (e) => {
-    setProductImage(e.target.files[0]);
-    setImagePreview(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setImagePreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
+  };
+
+
+  const handleClearImage = () => {
+    setImagePreview(null);
+    document.getElementById('image-input').value = '';
   };
 
   const generateKSKU = (category) => {
@@ -61,7 +74,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div>
+    <div className="custom-lay">
       {isLoading && <Loader />}
       <h3 className="--mt">Add New Product</h3>
       <ProductForm
@@ -73,6 +86,7 @@ const AddProduct = () => {
         handleInputChange={handleInputChange}
         handleImageChange={handleImageChange}
         saveProduct={saveProduct}
+        handleClearImage = {handleClearImage}
       />
     </div>
   );
