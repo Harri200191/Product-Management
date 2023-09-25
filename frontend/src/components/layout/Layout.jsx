@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
+import Chat from "../chatbot/Chat";
 
 const Layout = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ const Layout = ({ children }) => {
       <div style={{ minHeight: "80vh" }} className="--pad">
         {children}
       </div>
+      <Chat />
       <Footer />
     </>
   );

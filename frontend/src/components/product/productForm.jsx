@@ -97,12 +97,6 @@ const ProductForm = ({
           </div>
         </form>
       </Card>
-      {imagePreview && (
-            <div className="image-preview">
-                <h2>Image Preview</h2>
-                <img src={imagePreview} alt="Selected" />
-            </div>
-        )}
     </div>
   );
 };

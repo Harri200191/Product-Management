@@ -627,3 +627,31 @@ a:hover {
 .--mybtnnew:hover {
   transform: translateY(-2px);
 }
+
+/* ChatButton.css */
+.chat-button {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  background-color: #007bff; /* Blue color */
+  color: #fff; /* Text color */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; /* Makes it circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.chat-button:hover{
+  background-color: #0003bf;
+  transform: scale(1.3);
+}
+
+.temp{
+  margin-top: 6px;
+}
