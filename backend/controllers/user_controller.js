@@ -290,7 +290,6 @@ const forgotPassword = asyncHandler(async(req, res) => {
   
     // Create Reste Token
     let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
-    console.log(resetToken);
   
     // Hash token before saving to DB
     const hashedToken = crypto
