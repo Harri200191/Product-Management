@@ -1,7 +1,7 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import Card from "../../components/card/Card";
+import Card from "../../card/Card";
 import { FiX } from 'react-icons/fi';
 
 import "./productForm.scss";
