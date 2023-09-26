@@ -41,10 +41,10 @@ const AddProduct = () => {
             setImagePreview(reader.result);
         };
         reader.readAsDataURL(file);
+        setProductImage(e.target.files[0]);
       }
       setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
-
 
   const handleClearImage = () => {
     setImagePreview(null);

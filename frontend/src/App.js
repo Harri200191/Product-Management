@@ -15,7 +15,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import AddProduct from "./pages/addProduct/AddProduct";
+import ProductDetail from "./components/product/productDetail/ProductDetail";
 
+
+// Test Password for zain: zain@12345678
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -51,6 +54,14 @@ function App() {
           <Sidebar>
             <Layout>
               <AddProduct/>
+            </Layout>
+          </Sidebar>
+        }/>
+
+        <Route path="/product-detail/:id" element={
+          <Sidebar>
+            <Layout>
+              <ProductDetail/>
             </Layout>
           </Sidebar>
         }/>

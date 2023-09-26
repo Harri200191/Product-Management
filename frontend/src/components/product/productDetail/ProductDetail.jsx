@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import useRedirectLoggedOutUser from "../../../customHook/useRedirectLoggedOutUser";
 import { selectIsLoggedIn } from "../../../redux/features/auth/authslice";
-import { getProduct } from "../../../redux/features/product/productSlice";
+import { getProduct } from "../../../redux/features/products/productSlice";
 import Card from "../../card/Card";
 import { SpinnerImg } from "../../loader/Loader";
 import "./ProductDetail.scss";

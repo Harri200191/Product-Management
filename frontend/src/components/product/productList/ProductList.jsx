@@ -32,7 +32,6 @@ const ProductList = ({ products, isLoading }) => {
   };
 
   const delProduct = async (id) => {
-    console.log(id);
     await dispatch(deleteProduct(id));
     await dispatch(getProducts());
   };
@@ -54,11 +53,10 @@ const ProductList = ({ products, isLoading }) => {
     });
   };
 
-  //   Begin Pagination
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 7; 
+  const itemsPerPage = 5; 
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -112,7 +110,7 @@ const ProductList = ({ products, isLoading }) => {
               </thead>
 
               <tbody>
-                {filteredProducts.map((product, index) => {
+                {currentItems.map((product, index) => {
                   const { _id, name, category, price, quantity } = product;
                   return (
                     <tr key={_id}>
@@ -157,6 +155,7 @@ const ProductList = ({ products, isLoading }) => {
         <ReactPaginate
           breakLabel="..."
           nextLabel="Next" 
+          onPageChange={handlePageClick}
           pageRangeDisplayed={3}
           pageCount={pageCount}
           previousLabel="Prev"
