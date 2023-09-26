@@ -12,10 +12,10 @@ import {
   getProducts,
 } from "../../../redux/features/products/productSlice";
 import { Link } from "react-router-dom";
+import Search from "../../search/Search";
 
 const ProductList = ({ products, isLoading }) => {
   const [search, setSearch] = useState(""); 
-
   const dispatch = useDispatch();
 
   const shortenText = (text, n) => {
@@ -63,6 +63,12 @@ const ProductList = ({ products, isLoading }) => {
           <span>
             <h3>Inventory Items</h3>
           </span> 
+          <span>
+            <Search              
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+          </span> 
         </div>
 
         {isLoading && <SpinnerImg />}
@@ -74,7 +80,7 @@ const ProductList = ({ products, isLoading }) => {
             <table>
               <thead>
                 <tr>
-                  <th>s/n</th>
+                  <th>#</th>
                   <th>Name</th>
                   <th>Category</th>
                   <th>Price</th>
@@ -85,12 +91,12 @@ const ProductList = ({ products, isLoading }) => {
               </thead>
 
               <tbody>
-                {currentItems.map((product, index) => {
+                {products.map((product, index) => {
                   const { _id, name, category, price, quantity } = product;
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
-                      <td>{shortenText(name, 16)}</td>
+                      <td>{shortenText(name, 26)}</td>
                       <td>{category}</td>
                       <td>
                         {"$"}
