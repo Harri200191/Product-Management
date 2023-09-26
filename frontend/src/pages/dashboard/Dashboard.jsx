@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductList from "../../components/product/productList/ProductList";
 import ProductSummary from "../../components/product/productSummary/ProductSummary";
 import { getProducts } from "../../redux/features/products/productSlice";
+import { selectIsLoggedIn } from "../../redux/features/auth/authslice";
 
 const Dashboard = () => {
   useRedirectLoggedOutUser("/login");
@@ -28,6 +29,7 @@ const Dashboard = () => {
   return (
     <div>
       <h2 className="temp">Dashboard</h2>
+      <hr/>
       <Chat />
       <ProductSummary products={products} />
       <ProductList products={products} isLoading={isLoading} />
