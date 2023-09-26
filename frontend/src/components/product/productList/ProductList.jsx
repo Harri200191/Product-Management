@@ -13,9 +13,14 @@ import {
 } from "../../../redux/features/products/productSlice";
 import { Link } from "react-router-dom";
 import Search from "../../search/Search";
+import {
+    FILTER_PRODUCTS,
+    selectFilteredPoducts,
+} from "../../../redux/features/products/filterSlice";
 
 const ProductList = ({ products, isLoading }) => {
   const [search, setSearch] = useState(""); 
+  const filteredProducts = useSelector(selectFilteredPoducts);
   const dispatch = useDispatch();
 
   const shortenText = (text, n) => {
@@ -53,7 +58,23 @@ const ProductList = ({ products, isLoading }) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 5; 
+  const itemsPerPage = 7; 
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+
+    setCurrentItems(filteredProducts.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredProducts.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, filteredProducts]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % filteredProducts.length;
+    setItemOffset(newOffset);
+  };
+
+  useEffect(() => {
+    dispatch(FILTER_PRODUCTS({ products, search }));
+  }, [products, search, dispatch]);
 
   return (
     <div className="product-list">
@@ -91,7 +112,7 @@ const ProductList = ({ products, isLoading }) => {
               </thead>
 
               <tbody>
-                {products.map((product, index) => {
+                {filteredProducts.map((product, index) => {
                   const { _id, name, category, price, quantity } = product;
                   return (
                     <tr key={_id}>
