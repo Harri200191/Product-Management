@@ -19,9 +19,8 @@ import ProductDetail from "./components/product/productDetail/ProductDetail";
 import EditProduct from "./pages/editProduct/EditProduct";
 import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
+import Contact from "./pages/contact/Contact";
 
-
-// Test Password for zain: zain@12345678
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -92,6 +91,17 @@ function App() {
             </Layout>
           </Sidebar>
         }/>
+
+        <Route
+          path="/contact-us"
+          element={
+            <Sidebar>
+              <Layout>
+                <Contact />
+              </Layout>
+            </Sidebar>
+          }
+        />
 
       </Routes>
     </BrowserRouter>
