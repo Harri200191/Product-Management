@@ -59,7 +59,7 @@ const EditProfile = () => {
 
         // First save image to cloudinary
         const response = await fetch(
-          "https://api.cloudinary.com/v1_1/Haris+Rehman/image/upload",
+          "https://api.cloudinary.com/Inventory%20Management%20App/Haris%20Rehman/image/upload", 
           { method: "post", body: image }
         );
         const imgData = await response.json();
@@ -73,14 +73,13 @@ const EditProfile = () => {
           photo: profileImage ? imageURL : profile.photo,
         };
 
-        const data = await updateUser(formData);
-        console.log(data);
+        const data = await updateUser(formData); 
         toast.success("User updated");
         navigate("/profile");
         setIsLoading(false);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error) { 
+        console.log(error);
       setIsLoading(false);
       toast.error(error.message);
     }
