@@ -144,11 +144,12 @@ export const updateUser = async (formData) => {
     toast.error(message);
   }
 };
-// Update Profile
+
+// Update password
 export const changePassword = async (formData) => {
   try {
     const response = await axios.patch(
-      `${BACKEND_URL}/api/users/changepassword`,
+      `${BACKEND_URL}/api/users/ChangePass`,
       formData
     );
     return response.data;
