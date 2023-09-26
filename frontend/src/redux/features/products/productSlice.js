@@ -89,6 +89,7 @@ export const getProduct = createAsyncThunk(
     }
   }
 );
+
 // Update product
 export const updateProduct = createAsyncThunk(
   "products/updateProduct",

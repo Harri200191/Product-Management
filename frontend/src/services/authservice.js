@@ -117,7 +117,7 @@ export const getLoginStatus = async () => {
 // Get User Profile
 export const getUser = async () => {
   try {
-    const response = await axios.get(`${BACKEND_URL}/api/users/getuser`);
+    const response = await axios.get(`${BACKEND_URL}/api/users/FetchData`);
     return response.data;
   } catch (error) {
     const message =
@@ -132,7 +132,7 @@ export const getUser = async () => {
 export const updateUser = async (formData) => {
   try {
     const response = await axios.patch(
-      `${BACKEND_URL}/api/users/updateuser`,
+      `${BACKEND_URL}/api/users/UpdateUser`,
       formData
     );
     return response.data;
