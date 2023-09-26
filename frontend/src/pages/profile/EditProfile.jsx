@@ -64,6 +64,7 @@ const EditProfile = () => {
         );
         const imgData = await response.json();
         imageURL = imgData.url.toString();
+      }
 
         // Save Profile
         const formData = {
@@ -77,7 +78,7 @@ const EditProfile = () => {
         toast.success("User updated");
         navigate("/profile");
         setIsLoading(false);
-      }
+      
     } catch (error) { 
         console.log(error);
       setIsLoading(false);
