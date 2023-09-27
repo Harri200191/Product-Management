@@ -8,6 +8,8 @@ import "./profile.scss";
 import { toast } from "react-toastify";
 import { updateUser } from "../../services/authservice";
 import ChangePassword from "../../components/changePassword/ChangePassword";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css'
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -74,10 +76,16 @@ const EditProfile = () => {
           photo: profileImage ? imageURL : profile.photo,
         };
 
-        const data = await updateUser(formData); 
-        toast.success("User updated");
-        navigate("/profile");
-        setIsLoading(false);
+        if (formData.name === "" || formData.phone === "" || formData.bio === ""){
+          toast.error("Can't Leave Fields Empty");
+          setIsLoading(false);
+        }
+        else{
+          const data = await updateUser(formData); 
+          toast.success("User updated");
+          navigate("/profile");
+          setIsLoading(false);
+        }
       
     } catch (error) { 
         console.log(error);
@@ -91,7 +99,7 @@ const EditProfile = () => {
       {isLoading && <Loader />}
 
       <Card cardClass={"card --flex-dir-column"}>
-        <span className="profile-photo">
+        <span className="profile-photo-2">
           <img src={user?.photo} alt="profilepic" />
         </span>
         <form className="--form-control --m" onSubmit={saveProfile}>
@@ -108,16 +116,17 @@ const EditProfile = () => {
             <p>
               <label>Email:</label>
               <input type="text" name="email" value={profile?.email} disabled />
-              <br />
-              <code>Email cannot be changed.</code>
+             
+              <p className="email-temp">Email cannot be changed.</p>
             </p>
             <p>
               <label>Phone:</label>
-              <input
-                type="text"
-                name="phone"
-                value={profile?.phone}
-                onChange={handleInputChange}
+              <PhoneInput
+                  name= 'phone'
+                  country={'us'}
+                  value={profile?.phone}
+                  onChange={(value) => {setProfile({ ...profile, ["phone"]: value });}}
+                  countryCodeEditable={false}
               />
             </p>
             <p>
@@ -125,6 +134,7 @@ const EditProfile = () => {
               <br/>
               <textarea
                 name="bio"
+                placeholder="Enter your bio here.."
                 value={profile?.bio}
                 onChange={handleInputChange}
                 cols="30"

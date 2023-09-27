@@ -656,3 +656,8 @@ a:hover {
   text-align: center;
   margin-top: 6px;
 }
+
+.email-temp{
+  margin-top: 5px;
+  font-weight: 250;
+}

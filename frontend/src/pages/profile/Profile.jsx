@@ -49,7 +49,7 @@ const Profile = () => {
                 <b>Email : </b> {profile?.email}
               </p>
               <p>
-                <b>Phone : </b> {profile?.phone}
+                <b>Phone : </b> {"+" + profile?.phone}
               </p>
               <p>
                 <b>Bio : </b> {profile?.bio}

@@ -70,7 +70,7 @@ const AddProduct = () => {
     formData.append("image", productImage);
 
     await dispatch(createProduct(formData));
-    navigate("/dashboard");
+    // navigate("/dashboard");
   };
 
   return (
