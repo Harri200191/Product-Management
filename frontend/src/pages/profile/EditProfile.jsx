@@ -9,7 +9,8 @@ import { toast } from "react-toastify";
 import { updateUser } from "../../services/authservice";
 import ChangePassword from "../../components/changePassword/ChangePassword";
 import PhoneInput from "react-phone-input-2";
-import 'react-phone-input-2/lib/style.css'
+import 'react-phone-input-2/lib/style.css';
+import profilePic from "../../assets/profilepic.png"
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -38,8 +39,27 @@ const EditProfile = () => {
     setProfile({ ...profile, [name]: value });
   };
 
+  let flag = false;
+
   const handleImageChange = (e) => {
-    setProfileImage(e.target.files[0]);
+    if (flag){
+      setProfileImage(e.target.files[0]);
+    }
+    else{
+      setProfileImage(profilePic);
+    };
+  };
+
+  const handleRemoveFile = () => {
+    flag = false;
+    setProfileImage(null);
+    document.getElementById('image-input').value = '';
+  };
+
+  const [userPhoto, setUserPhoto] = useState(user?.photo);
+
+  const handleImageChangeForDisplay = () => {
+    setUserPhoto(profilePic); 
   };
 
   const saveProfile = async (e) => {
@@ -48,23 +68,30 @@ const EditProfile = () => {
     try {
       // Handle Image upload
       let imageURL;
-      if (
-        profileImage &&
+      if ( 
         (profileImage.type === "image/jpeg" ||
           profileImage.type === "image/jpg" ||
           profileImage.type === "image/png")
       ) {
+        if (profileImage === profilePic){
+          flag = false;
+        }
+        else{
+          flag = true;
+        }
         const image = new FormData();
         image.append("file", profileImage);
-        image.append("cloud_name", "Haris Rehman");
+        image.append("cloud_name", "dmyeggcco");
         image.append("upload_preset", "bc3mopvw");
 
         // First save image to cloudinary
         const response = await fetch(
-          "https://api.cloudinary.com/Inventory%20Management%20App/Haris%20Rehman/image/upload", 
+          "https://api.cloudinary.com/v1_1/dmyeggcco/image/upload", 
           { method: "post", body: image }
         );
+        console.log(response);
         const imgData = await response.json();
+        console.log(imgData);
         imageURL = imgData.url.toString();
       }
 
@@ -100,7 +127,16 @@ const EditProfile = () => {
 
       <Card cardClass={"card --flex-dir-column"}>
         <span className="profile-photo-2">
-          <img src={user?.photo} alt="profilepic" />
+          {useEffect===profilePic ? (
+            flag = true,
+            <img src={user?.photo} alt="profilepic" />
+          ): (
+            <img src={userPhoto} alt="profilepic"/>
+          )
+        }
+          
+          <br />
+          <button className="--mybtn4" onClick={handleImageChangeForDisplay}>Clear Image</button>
         </span>
         <form className="--form-control --m" onSubmit={saveProfile}>
           <span className="profile-data">
@@ -133,6 +169,7 @@ const EditProfile = () => {
               <label>Bio:</label>
               <br/>
               <textarea
+                className="textare"
                 name="bio"
                 placeholder="Enter your bio here.."
                 value={profile?.bio}
@@ -143,7 +180,16 @@ const EditProfile = () => {
             </p>
             <p>
               <label>Photo:</label>
-              <input type="file" name="image" onChange={handleImageChange} />
+              <input type="file" name="image" accept=".jpg, .jpeg, .png" id="image-input" onChange={(e) => handleImageChange(e)} />
+              {profileImage && (
+                <span>
+                  {profileImage.name} 
+                  <button className="remove-button" onClick={handleRemoveFile}>
+                    &#10006;
+                  </button>
+                </span>
+              )
+            }
             </p>
             <div>
               <button className="--btn --btn-primary">Edit Profile</button>

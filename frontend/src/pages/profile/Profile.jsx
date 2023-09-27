@@ -19,8 +19,7 @@ const Profile = () => {
     console.log("Getting use");
     setIsLoading(true);
     async function getUserData() {
-      const data = await getUser();
-      console.log(data);
+      const data = await getUser(); 
 
       setProfile(data);
       setIsLoading(false);

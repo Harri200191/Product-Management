@@ -11,10 +11,10 @@
       }
 
       span.profile-photo-2 {
-        scale: 1.1;
-        margin-left: 30px;
-        margin-right: 30px;
-        margin-top: 200px;
+        scale: 1.0;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 150px;
         text-align: center;
       }
   
@@ -25,6 +25,7 @@
         padding-left: 1rem;
       }
       span.profile-data {
+        margin-right: 30px;
       }
       span.profile-data > * {
         border-top: 1px solid #ccc;
