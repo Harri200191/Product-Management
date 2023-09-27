@@ -33,6 +33,8 @@ const EditProfile = () => {
   };
   const [profile, setProfile] = useState(initialState);
   const [profileImage, setProfileImage] = useState(profilePic);
+  const [userPhoto, setUserPhoto] = useState(user?.photo);
+  const [flag, setflag] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,15 +42,13 @@ const EditProfile = () => {
   }; 
 
   const handleImageChange = (e) => { 
-      setProfileImage(e.target.files[0]); 
+    setflag(true);
+    setProfileImage(e.target.files[0]); 
   };
 
-  const handleRemoveFile = () => {
-    setProfileImage(null);
+  const handleRemoveFile = () => { 
     document.getElementById('image-input').value = '';
   };
-
-  const [userPhoto, setUserPhoto] = useState(user?.photo);
 
   const handleImageChangeForDisplay = () => {
     setUserPhoto(profilePic); 
@@ -58,6 +58,7 @@ const EditProfile = () => {
   const saveProfile = async (e) => { 
     e.preventDefault();
     setIsLoading(true);
+    setflag(false);
     try { 
       let imageURL;
 
@@ -66,13 +67,15 @@ const EditProfile = () => {
       image.append("cloud_name", "dmyeggcco");
       image.append("upload_preset", "bc3mopvw");
 
-      // First save image to cloudinary
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/dmyeggcco/image/upload", 
-        { method: "post", body: image }
-      );
-      const imgData = await response.json(); 
-      imageURL = imgData.url.toString();
+      if (profileImage !== profilePic){
+        // First save image to cloudinary
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dmyeggcco/image/upload", 
+          { method: "post", body: image }
+        );
+        const imgData = await response.json(); 
+        imageURL = imgData.url.toString();
+      }
     
 
       // Save Profile
@@ -113,8 +116,7 @@ const EditProfile = () => {
           ): (
             <img src={userPhoto} alt="profilepic"/>
           )
-        }
-          
+        }    
           <br />
           <button className="--mybtn4" onClick={handleImageChangeForDisplay}>Clear Image</button>
         </span>
@@ -161,7 +163,7 @@ const EditProfile = () => {
             <p>
               <label>Photo:</label>
               <input type="file" name="image" accept=".jpg, .jpeg, .png" id="image-input" onChange={(e) => handleImageChange(e)} />
-              {profileImage && (
+              {flag && (
                 <span>
                   {profileImage.name} 
                   <button className="remove-button" onClick={handleRemoveFile}>

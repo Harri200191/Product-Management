@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Protect middle ware is used only when we want to start the function IF the user is logged in
 router.post("/", protect, upload.single("image"), CreateProduct);
-router.post("/:id", protect, upload.single("image"), updateProduct);
+router.patch("/:id", protect, upload.single("image"), updateProduct);
 router.get("/", protect, getProducts);
 router.get("/:id", protect, getProduct);
 router.delete("/:id", protect, deleteProduct);

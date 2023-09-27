@@ -46,6 +46,7 @@ const Contact = () => {
             <textarea
               cols="30"
               rows="10"
+              className="textare"
               name="message" 
               placeholder="Enter your message here.."
               required
