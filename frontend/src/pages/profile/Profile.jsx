@@ -15,8 +15,7 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    console.log("Getting use");
+  useEffect(() => { 
     setIsLoading(true);
     async function getUserData() {
       const data = await getUser(); 

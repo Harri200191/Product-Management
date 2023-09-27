@@ -32,26 +32,18 @@ const EditProfile = () => {
     photo: user?.photo,
   };
   const [profile, setProfile] = useState(initialState);
-  const [profileImage, setProfileImage] = useState("");
+  const [profileImage, setProfileImage] = useState(profilePic);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfile({ ...profile, [name]: value });
-  };
+  }; 
 
-  let flag = false;
-
-  const handleImageChange = (e) => {
-    if (flag){
-      setProfileImage(e.target.files[0]);
-    }
-    else{
-      setProfileImage(profilePic);
-    };
+  const handleImageChange = (e) => { 
+      setProfileImage(e.target.files[0]); 
   };
 
   const handleRemoveFile = () => {
-    flag = false;
     setProfileImage(null);
     document.getElementById('image-input').value = '';
   };
@@ -60,60 +52,49 @@ const EditProfile = () => {
 
   const handleImageChangeForDisplay = () => {
     setUserPhoto(profilePic); 
+    setProfileImage(profilePic)
   };
 
-  const saveProfile = async (e) => {
+  const saveProfile = async (e) => { 
     e.preventDefault();
     setIsLoading(true);
-    try {
-      // Handle Image upload
+    try { 
       let imageURL;
-      if ( 
-        (profileImage.type === "image/jpeg" ||
-          profileImage.type === "image/jpg" ||
-          profileImage.type === "image/png")
-      ) {
-        if (profileImage === profilePic){
-          flag = false;
-        }
-        else{
-          flag = true;
-        }
-        const image = new FormData();
-        image.append("file", profileImage);
-        image.append("cloud_name", "dmyeggcco");
-        image.append("upload_preset", "bc3mopvw");
 
-        // First save image to cloudinary
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dmyeggcco/image/upload", 
-          { method: "post", body: image }
-        );
-        console.log(response);
-        const imgData = await response.json();
-        console.log(imgData);
-        imageURL = imgData.url.toString();
+      const image = new FormData();
+      image.append("file", profileImage);
+      image.append("cloud_name", "dmyeggcco");
+      image.append("upload_preset", "bc3mopvw");
+
+      // First save image to cloudinary
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dmyeggcco/image/upload", 
+        { method: "post", body: image }
+      );
+      const imgData = await response.json(); 
+      imageURL = imgData.url.toString();
+    
+
+      // Save Profile
+      const formData = {
+        name: profile.name,
+        phone: profile.phone,
+        bio: profile.bio,
+        photo: profileImage !== profilePic ? imageURL : profilePic,
+      };
+
+
+      if (formData.name === "" || formData.phone === "" || formData.bio === ""){
+        toast.error("Can't Leave Fields Empty");
+        setIsLoading(false);
       }
-
-        // Save Profile
-        const formData = {
-          name: profile.name,
-          phone: profile.phone,
-          bio: profile.bio,
-          photo: profileImage ? imageURL : profile.photo,
-        };
-
-        if (formData.name === "" || formData.phone === "" || formData.bio === ""){
-          toast.error("Can't Leave Fields Empty");
-          setIsLoading(false);
-        }
-        else{
-          const data = await updateUser(formData); 
-          toast.success("User updated");
-          navigate("/profile");
-          setIsLoading(false);
-        }
-      
+      else{
+        const data = await updateUser(formData); 
+        toast.success("User updated");
+        navigate("/profile");
+        setIsLoading(false);
+      }
+    
     } catch (error) { 
         console.log(error);
       setIsLoading(false);
@@ -128,7 +109,6 @@ const EditProfile = () => {
       <Card cardClass={"card --flex-dir-column"}>
         <span className="profile-photo-2">
           {useEffect===profilePic ? (
-            flag = true,
             <img src={user?.photo} alt="profilepic" />
           ): (
             <img src={userPhoto} alt="profilepic"/>
