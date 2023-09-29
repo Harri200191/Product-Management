@@ -649,7 +649,7 @@ a:hover {
 
 .chat-button:hover{
   background-color: #0003bf;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .temp{

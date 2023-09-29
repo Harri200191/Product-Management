@@ -46,8 +46,10 @@ const EditProfile = () => {
     setProfileImage(e.target.files[0]); 
   };
 
-  const handleRemoveFile = () => { 
+  const handleRemoveFile = (e) => { 
+    e.preventDefault()
     document.getElementById('image-input').value = '';
+    setProfileImage(profilePic);
   };
 
   const handleImageChangeForDisplay = () => {
@@ -170,8 +172,8 @@ const EditProfile = () => {
                     &#10006;
                   </button>
                 </span>
-              )
-            }
+                )
+              }
             </p>
             <div>
               <button className="--btn --btn-primary">Edit Profile</button>
