@@ -50,6 +50,7 @@ const EditProfile = () => {
     e.preventDefault()
     document.getElementById('image-input').value = '';
     setProfileImage(profilePic);
+    setflag(false);
   };
 
   const handleImageChangeForDisplay = () => {
