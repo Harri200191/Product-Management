@@ -5,6 +5,7 @@
 /pinvent-app
 /.pnp
 .pnp.js
+.env
 
 # testing
 /coverage
