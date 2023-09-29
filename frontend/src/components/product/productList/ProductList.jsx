@@ -118,12 +118,12 @@ const ProductList = ({ products, isLoading }) => {
                       <td>{shortenText(name, 26)}</td>
                       <td>{category}</td>
                       <td>
-                        {"$"}
+                        {"Rs "}
                         {price}
                       </td>
                       <td>{quantity}</td>
                       <td>
-                        {"$"}
+                        {"Rs "}
                         {price * quantity}
                       </td>
                       <td className="icons">

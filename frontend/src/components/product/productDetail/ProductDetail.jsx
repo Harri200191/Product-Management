@@ -66,14 +66,14 @@ const ProductDetail = () => {
               <b>&rarr; Category : </b> {product.category}
             </p>
             <p>
-              <b>&rarr; Price : </b> {"$"}
+              <b>&rarr; Price : </b> {"Rs "}
               {product.price}
             </p>
             <p>
               <b>&rarr; Quantity in stock : </b> {product.quantity}
             </p>
             <p>
-              <b>&rarr; Total Value in stock : </b> {"$"}
+              <b>&rarr; Total Value in stock : </b> {"Rs "}
               {product.price * product.quantity}
             </p>
             <hr />
