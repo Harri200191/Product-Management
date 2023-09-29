@@ -33,6 +33,7 @@ const ProductForm = ({
               accept=".jpg, .jpeg, .png"
               onChange={(e) => handleImageChange(e)}
             />
+            
 
             {imagePreview ? (
                 <div className="image-container">
@@ -44,6 +45,7 @@ const ProductForm = ({
                 ) : (
                 <p>No image selected</p>
                 )}
+
 
           </Card>
           <label>Product Name:</label>
