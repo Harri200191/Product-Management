@@ -9,7 +9,7 @@ const protect = asyncHandler(async(req, resp, next) => {
         const token = req.cookies.Token;
         if (!token){
             resp.status(401);
-            throw new Error("Not authorized, Please logIn")
+            throw new Error("Not authorized, Please log In")
         };
 
         // verify token
