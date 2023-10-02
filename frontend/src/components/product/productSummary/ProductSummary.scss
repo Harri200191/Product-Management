@@ -1,8 +1,10 @@
 .product-summary {
     width: 100%;
     .info-summary {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(2, 300px); /* Two columns */
+      grid-gap: 10px; /* Gap between rectangles */
+      
     }
   }
   

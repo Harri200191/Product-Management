@@ -7,6 +7,7 @@ import {
   createProduct,
   selectIsLoading,
 } from "../../redux/features/products/productSlice";
+import InvoiceForm from "../../components/product/productForm/InvoiceForm";
 
 const initialState = {
   name: "",
@@ -77,7 +78,7 @@ const Invoice = () => {
       <div className="custom-lay">
         {isLoading && <Loader />}
         <h3 className="--mt">Generate New Invoice</h3>
-        <ProductForm
+        <InvoiceForm
           product={product}
           productImage={productImage}
           imagePreview={imagePreview}
