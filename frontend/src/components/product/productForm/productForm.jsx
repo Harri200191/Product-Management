@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Card from "../../card/Card";
 import { FiX } from 'react-icons/fi';
+import Sound from '../../sound/Sound'; // Import the HOC
 
 import "./productForm.scss";
 
@@ -17,6 +18,17 @@ const ProductForm = ({
   saveProduct,
   handleClearImage,
 }) => {
+  const soundFile = 'C:\\Users\\haris\\WEB DEV\\Product-Management\\frontend\\src\\assets\\buttonsound.mp3'; // Replace with your sound file path
+
+  // Create a button component
+  const MyButton = () => (
+    <button type="submit" className="--mybtnnew" >
+      Save Product
+    </button>
+  );
+
+  const ButtonWithSound = Sound(MyButton, soundFile);
+
   return (
     <div className="add-product">
       <Card cardClass={"card"}>
@@ -94,9 +106,7 @@ const ProductForm = ({
           />
 
           <div className="--my">
-            <button type="submit" className="--mybtnnew" >
-              Save Product
-            </button>
+            <ButtonWithSound />
           </div>
         </form>
       </Card>

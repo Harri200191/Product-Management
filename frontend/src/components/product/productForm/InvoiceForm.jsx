@@ -7,15 +7,9 @@ import { FiX } from 'react-icons/fi';
 import "./productForm.scss";
 
 const InvoiceForm = ({
-  product,
-  productImage,
-  imagePreview,
-  description,
-  setDescription,
+  product, 
   handleInputChange,
-  handleImageChange,
   saveProduct,
-  handleClearImage,
 }) => {
   return (
     <div className="add-product">

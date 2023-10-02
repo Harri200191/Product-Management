@@ -20,7 +20,7 @@ import EditProduct from "./pages/editProduct/EditProduct";
 import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
 import Contact from "./pages/contact/Contact";
-import Invoice from "./pages/Invoice/Invoice";
+import Invoice from "./pages/Invoice/Invoice"; 
 
 
 axios.defaults.withCredentials = true;

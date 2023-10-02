@@ -48,6 +48,7 @@ const AddProduct = () => {
 
   const handleClearImage = () => {
     setImagePreview(null);
+    setProductImage(null)
     document.getElementById('image-input').value = '';
   };
 

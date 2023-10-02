@@ -34,44 +34,16 @@ const Invoice = () => {
       setProduct({ ...product, [name]: value });
     };
   
-    const handleImageChange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-          const reader = new FileReader();
-          reader.onload = () => {
-              setImagePreview(reader.result);
-          };
-          reader.readAsDataURL(file);
-          setProductImage(e.target.files[0]);
-        }
-        setImagePreview(URL.createObjectURL(e.target.files[0]));
-    };
-  
-    const handleClearImage = () => {
-      setImagePreview(null);
-      document.getElementById('image-input').value = '';
-    };
-  
-    const generateKSKU = (category) => {
-      const letter = category.slice(0, 3).toUpperCase();
-      const number = Date.now();
-      const sku = letter + "-" + number;
-      return sku;
-    };
   
     const saveProduct = async (e) => {
       e.preventDefault();
       const formData = new FormData();
       formData.append("name", name);
-      formData.append("sku", generateKSKU(category));
       formData.append("category", category);
       formData.append("quantity", Number(quantity));
       formData.append("price", price);
       formData.append("description", description);
       formData.append("image", productImage);
-  
-      await dispatch(createProduct(formData));
-      // navigate("/dashboard");
     };
   
     return (
@@ -79,15 +51,9 @@ const Invoice = () => {
         {isLoading && <Loader />}
         <h3 className="--mt">Generate New Invoice</h3>
         <InvoiceForm
-          product={product}
-          productImage={productImage}
-          imagePreview={imagePreview}
-          description={description}
-          setDescription={setDescription}
-          handleInputChange={handleInputChange}
-          handleImageChange={handleImageChange}
-          saveProduct={saveProduct}
-          handleClearImage = {handleClearImage}
+          product={product} 
+          handleInputChange={handleInputChange} 
+          saveProduct={saveProduct} 
         />
       </div>
     );
