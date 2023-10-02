@@ -5,11 +5,10 @@ import Chatbot from './Chatbot'
 const Chat = () => {
   return (
     <div className="chat-button">
-        <i className="fas fa-comment-dots"></i> 
+        <i  className="fas fa-comment-dots" onClick={<Chatbot/>}></i> 
         {
-          <button onClick={<Chatbot/>}>
             <PiChatsCircleBold/>
-          </button>
+
           }
     </div>
   )
