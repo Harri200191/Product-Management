@@ -6,7 +6,7 @@ import Card from "../../components/card/Card";
 
 import "./Invoice.scss"
 
-const App = () => {
+const Invoice = () => {
   const [products, setProducts] = useState([]);
   const [pdfData, setPdfData] = useState(null);
 
@@ -88,4 +88,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Invoice;

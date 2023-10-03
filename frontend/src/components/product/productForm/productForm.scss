@@ -65,8 +65,34 @@
     color: red;
   }
   
-
+  .field{
+    margin-top: 10px;
+    margin-right: 30px;
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 300;
+    padding: 1rem;
+    margin: 1rem auto;
+    width: 200px;
+    border: 1px solid #777;
+    border-radius: 3px;
+    outline: none;
+  }
   
+  .finalbtn{
+    font-size: 1.6rem;
+    font-weight: 400;
+    padding: 6px 8px;
+    margin: 0 5px 0 0;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer; 
+    transition: all 0.3s;
+  }
 
+  .finalbtn:hover {
+    color: red;
+    transform: translateY(-2px);
+  }
   
   
