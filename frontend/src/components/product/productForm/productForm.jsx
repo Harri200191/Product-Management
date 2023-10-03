@@ -4,6 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import Card from "../../card/Card";
 import { FiX } from 'react-icons/fi';
 import Sound from '../../sound/Sound'; // Import the HOC
+import useSound from 'use-sound';
 
 import "./productForm.scss";
 
@@ -27,8 +28,11 @@ const ProductForm = ({
     </button>
   );
 
-  const ButtonWithSound = Sound(MyButton, soundFile);
+  const FanfareButton = () => {
+    const [play, { stop }] = useSound(soundFile);
+  }
 
+  const ButtonWithSound = Sound(MyButton, soundFile);
   return (
     <div className="add-product">
       <Card cardClass={"card"}>
@@ -45,8 +49,6 @@ const ProductForm = ({
               accept=".jpg, .jpeg, .png"
               onChange={(e) => handleImageChange(e)}
             />
-            
-
             {imagePreview ? (
                 <div className="image-container">
                     <img src={imagePreview} alt="Product" />
