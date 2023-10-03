@@ -12,16 +12,13 @@ import "./Invoice.scss"
 const Invoice = () => {
   const dispatch = useDispatch();
 
-  const [profile, setProfile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [profile, setProfile] = useState(null); 
 
-  useEffect(() => { 
-    setIsLoading(true);
+  useEffect(() => {  
     async function getUserData() {
       const data = await getUser(); 
 
-      setProfile(data);
-      setIsLoading(false);
+      setProfile(data); 
       await dispatch(SET_USER(data));
       await dispatch(SET_NAME(data.name));
     }
@@ -68,15 +65,15 @@ const Invoice = () => {
           {/* Invoice Items */}
           <View style={styles.itemsContainer}>
             <View style={styles.itemHeader}>
-              <Text>Product Name</Text>
-              <Text>Quantity</Text>
-              <Text>Price</Text>
+              <Text style={{fontWeight: "bold"}}>Product Name</Text>
+              <Text style={{fontWeight: "bold"}}>Quantity</Text>
+              <Text style={{fontWeight: "bold"}}>Price</Text>
             </View>
             {products.map((product) => (
               <View key={product.id} style={styles.item}>
-                <Text>{product.name}</Text>
-                <Text>{product.quantity}</Text>  
-                <Text>Rs{product.price}</Text>
+                <Text style={{textAlign: "left"}}>{product.name}</Text>
+                <Text style={{textAlign: "center"}}>{product.quantity}</Text>  
+                <Text style={{ textAlign: "right",}}>Rs {product.price}</Text>
               </View>
             ))}
           </View>
@@ -84,7 +81,7 @@ const Invoice = () => {
           {/* Total */}
           <View style={styles.totalContainer}>
             <Text>Total:</Text>
-            <Text>Rs{calculateTotal()}</Text>
+            <Text>Rs {calculateTotal()}</Text>
           </View>
   
           {/* Footer */}
@@ -98,8 +95,8 @@ const Invoice = () => {
     setPdfData(pdfContent);
   };
   
-  const calculateTotal = () => {
-    const total = products.reduce((acc, product) => acc + product.price, 0);
+  const calculateTotal = () => { 
+    const total = Number(products.reduce((acc, product) => acc + (product.price * product.quantity), 0));
     return total.toFixed(2);
   };
   
@@ -114,11 +111,13 @@ const Invoice = () => {
     companyName: {
       fontSize: 28,
       fontWeight: "bold",
+      marginBottom:5,
     },
     title: {
       fontSize: 24,
       marginBottom: 10,
       textAlign: "center",
+      fontWeight: "extrabold"
     },
     itemsContainer: {
       padding: 10,
@@ -127,19 +126,23 @@ const Invoice = () => {
     itemHeader: {
       flexDirection: "row",
       justifyContent: "space-between",
-      backgroundColor: "#f2f2f2",
+      backgroundColor: "#c4c4c46c",
       padding: 10,
+      borderTop: 1,
+      borderBottom: 1, 
+      fontWeight: "bold",
     },
     item: {
       flexDirection: "row",
       justifyContent: "space-between",
       padding: 10,
+      borderBottom: 1,
     },
     totalContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
-      borderTop: 1,
       padding: 10,
+      borderTop: 1,
     },
     footer: {
       padding: 10,
@@ -154,6 +157,7 @@ const Invoice = () => {
       <Card cardClass={"card"}>
         <h2>Invoice Form</h2>
         <button className= "btn" onClick={addProduct}>Add Product</button>
+        {console.log(products)}
         {products.map((product) => (
           <InvoiceForm
             key={product.id}
@@ -162,6 +166,7 @@ const Invoice = () => {
             onRemove={removeProduct}
           />
         ))}
+        {console.log(products)}
         <br/>
         <button className= "btn2" onClick={generatePdf}>Generate PDF</button>
         {pdfData && (
@@ -171,8 +176,8 @@ const Invoice = () => {
             }
           </PDFDownloadLink>
         )}
-        </Card>
-      </div>
+      </Card>
+    </div>
   );
 };
 
