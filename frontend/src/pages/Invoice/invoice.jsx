@@ -1,62 +1,91 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Loader from "../../components/loader/Loader";
-import ProductForm from "../../components/product/productForm/productForm";
-import {
-  createProduct,
-  selectIsLoading,
-} from "../../redux/features/products/productSlice";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import InvoiceForm from "../../components/product/productForm/InvoiceForm";
+import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import Card from "../../components/card/Card";
 
-const initialState = {
-  name: "",
-  category: "",
-  quantity: "",
-  price: "",
+import "./Invoice.scss"
+
+const App = () => {
+  const [products, setProducts] = useState([]);
+  const [pdfData, setPdfData] = useState(null);
+
+  const addProduct = () => {
+    const newProduct = { id: Date.now(), name: "", price: 0 };
+    setProducts([...products, newProduct]);
+  };
+
+  const updateProduct = (updatedProduct) => {
+    const updatedProducts = products.map((product) =>
+      product.id === updatedProduct.id ? updatedProduct : product
+    );
+    setProducts(updatedProducts);
+  };
+
+  const removeProduct = (productId) => {
+    const updatedProducts = products.filter((product) => product.id !== productId);
+    setProducts(updatedProducts);
+  };
+
+  const generatePdf = () => {
+    const pdfContent = (
+      <Document>
+        <Page size="A4">
+          <View style={styles.container}>
+            <Text style={styles.title}>Product Summary</Text>
+            {products.map((product) => (
+              <View key={product.id} style={styles.product}>
+                <Text>{product.name}</Text>
+                <Text>${product.price}</Text>
+              </View>
+            ))}
+          </View>
+        </Page>
+      </Document>
+    );
+    setPdfData(pdfContent);
+  };
+
+  const styles = StyleSheet.create({
+    container: {
+      padding: 20,
+    },
+    title: {
+      fontSize: 24,
+      marginBottom: 10,
+    },
+    product: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginBottom: 5,
+    },
+  });
+
+  return (
+    <div className="add-product">
+      <Card cardClass={"card"}>
+        <h2>Invoice Form</h2>
+        <button className= "btn" onClick={addProduct}>Add Product</button>
+        {products.map((product) => (
+          <InvoiceForm
+            key={product.id}
+            product={product}
+            onUpdate={updateProduct}
+            onRemove={removeProduct}
+          />
+        ))}
+        <br/>
+        <button className= "btn2" onClick={generatePdf}>Generate PDF</button>
+        {pdfData && (
+          <PDFDownloadLink document={pdfData} fileName="product_summary.pdf">
+            {({ blob, url, loading, error }) =>
+              loading ? "Loading..." : "Download PDF"
+            }
+          </PDFDownloadLink>
+        )}
+        </Card>
+      </div>
+  );
 };
 
-const Invoice = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    
-    const [product, setProduct] = useState(initialState);
-    const [productImage, setProductImage] = useState("");
-    const [imagePreview, setImagePreview] = useState(null);
-    const [description, setDescription] = useState("");
-  
-    const isLoading = useSelector(selectIsLoading);
-  
-    const { name, category, price, quantity } = product;
-  
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setProduct({ ...product, [name]: value });
-    };
-  
-  
-    const saveProduct = async (e) => {
-      e.preventDefault();
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("category", category);
-      formData.append("quantity", Number(quantity));
-      formData.append("price", price);
-      formData.append("description", description);
-      formData.append("image", productImage);
-    };
-  
-    return (
-      <div className="custom-lay">
-        {isLoading && <Loader />}
-        <h3 className="--mt">Generate New Invoice</h3>
-        <InvoiceForm
-          product={product} 
-          handleInputChange={handleInputChange} 
-          saveProduct={saveProduct} 
-        />
-      </div>
-    );
-}
-
-export default Invoice
+export default App;

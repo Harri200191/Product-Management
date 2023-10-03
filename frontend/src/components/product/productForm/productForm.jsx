@@ -19,15 +19,10 @@ const ProductForm = ({
   saveProduct,
   handleClearImage,
 }) => {
-  const soundFile = 'C:\\Users\\haris\\WEB DEV\\Product-Management\\frontend\\src\\assets\\buttonsound.mp3'; // Replace with your sound file path
-
-  const FanfareButton = () => {
-    const [play, { stop }] = useSound(soundFile);
-  }
-
-  const ButtonWithSound = Sound(MyButton, soundFile);
+  
+  
   return (
-    <div className="add-product">
+    <div className="add-product"> 
       <Card cardClass={"card"}>
         <form onSubmit={saveProduct}>
           <Card cardClass={"group"}>
@@ -101,7 +96,7 @@ const ProductForm = ({
           />
 
           <div className="--my">
-          <button onClick={play} type="submit" className="--mybtnnew" >
+          <button type="submit" className="--mybtnnew" >
             Save Product
           </button>
           </div>
