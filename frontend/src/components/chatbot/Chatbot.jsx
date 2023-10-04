@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import {Chatbot} from "react-chatbot-kit";
+import Chatbot from "react-chatbot-kit";
 import MessageParser from './MessageParser';
 import ActionProvider from './ActionProvider';
-import config from './config';
+import configs from './config';
 
 const Chatbots = ({ isOpen, onClose }) => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(isOpen);
@@ -27,9 +27,9 @@ const Chatbots = ({ isOpen, onClose }) => {
       </div>
       <div className="chatbot-interface">
         <Chatbot
-          config ={config}
+          config ={configs}
           actionProvider = {ActionProvider}
-          messageParser = {MessageParser}
+          messageParser = {MessageParser}  
         />
       </div>
     </div>

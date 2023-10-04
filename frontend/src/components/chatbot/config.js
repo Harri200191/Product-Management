@@ -4,7 +4,7 @@ import { createChatBotMessage } from "react-chatbot-kit";
 import Options from "./components/Options/Options";
 import Quiz from "./components/Quiz/Quiz";
 
-const config = {
+const configs = {
   botName: "LearningBot",
   initialMessages: [
     createChatBotMessage(`Hello. What do you want to learn`, {
@@ -39,4 +39,4 @@ const config = {
   ],
 };
 
-export default config;
+export default configs;

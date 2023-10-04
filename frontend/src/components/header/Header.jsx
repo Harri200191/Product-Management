@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { selectName, SET_LOGIN } from "../../redux/features/auth/authslice";
 import { logoutUser } from "../../services/authservice";
 import { confirmAlert } from "react-confirm-alert";
+ 
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Header = () => {
           Logout
         </button>
       </div>
-      <hr />
+      <hr /> 
     </div>
   );
 };

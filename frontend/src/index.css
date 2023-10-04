@@ -815,17 +815,17 @@ a:hover {
   color: #888;
 }
 
-/* Styles for message parser (customize as needed) */
-.message-parser {
-  /* Add styles for message parser components */
+.custom-chat-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
 }
 
-/* Styles for action provider (customize as needed) */
-.action-provider {
-  /* Add styles for action provider components */
-}
-
-/* Styles for the chatbot config (customize as needed) */
-.chatbot-config {
-  /* Add styles for chatbot configuration components */
+/* Styles for the placeholder text in the input field */
+.custom-chat-input::placeholder {
+  color: #888;
+  font-style: italic;
 }
