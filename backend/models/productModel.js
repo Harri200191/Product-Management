@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcryptjs = require("bcryptjs");
+const bcryptjs = require("bcryptjs"); 
 
 const product_schema = mongoose.Schema(
     {
@@ -53,7 +53,7 @@ const product_schema = mongoose.Schema(
         image: 
         {
             type: Object,
-            default:{}
+            default: {}
         },
     },
     
