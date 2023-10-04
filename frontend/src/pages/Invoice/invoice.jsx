@@ -153,30 +153,32 @@ const Invoice = () => {
   
 
   return (
-    <div className="add-product">
-      <Card cardClass={"card"}>
-        <h2>Invoice Form</h2>
-        <button className= "btn" onClick={addProduct}>Add Product</button>
-        {console.log(products)}
-        {products.map((product) => (
-          <InvoiceForm
-            key={product.id}
-            product={product}
-            onUpdate={updateProduct}
-            onRemove={removeProduct}
-          />
-        ))}
-        {console.log(products)}
-        <br/>
-        <button className= "btn2" onClick={generatePdf}>Generate PDF</button>
-        {pdfData && (
-          <PDFDownloadLink document={pdfData} fileName="Invoice.pdf">
-            {({ blob, url, loading, error }) =>
-              loading ? "Loading..." : "Download PDF"
-            }
-          </PDFDownloadLink>
-        )}
-      </Card>
+    <div className="custom-lay">
+        <h3 className="--mt">Invoice Form</h3>
+        <div className="add-product">
+        <Card cardClass={"card"}>  
+          <button className= "btn" onClick={addProduct}>Add Product</button>
+          {console.log(products)}
+          {products.map((product) => (
+            <InvoiceForm
+              key={product.id}
+              product={product}
+              onUpdate={updateProduct}
+              onRemove={removeProduct}
+            />
+          ))}
+          {console.log(products)}
+          <br/>
+          <button className= "btn2" onClick={generatePdf}>Generate PDF</button>
+          {pdfData && (
+            <PDFDownloadLink document={pdfData} fileName="Invoice.pdf">
+              {({ blob, url, loading, error }) =>
+                loading ? "Loading..." : "Download PDF"
+              }
+            </PDFDownloadLink>
+          )}
+        </Card>
+      </div>
     </div>
   );
 };
