@@ -2,7 +2,9 @@ import React from 'react'
 
 const Chatbot = () => {
   return (
-    <div>Chatbot</div>
+    <div>
+      <h1>Chatbot For You</h1>
+    </div>
   )
 }
 
