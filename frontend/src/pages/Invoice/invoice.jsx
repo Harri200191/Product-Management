@@ -158,7 +158,6 @@ const Invoice = () => {
         <div className="add-product">
         <Card cardClass={"card"}>  
           <button className= "btn" onClick={addProduct}>Add Product</button>
-          {console.log(products)}
           {products.map((product) => (
             <InvoiceForm
               key={product.id}
@@ -166,8 +165,7 @@ const Invoice = () => {
               onUpdate={updateProduct}
               onRemove={removeProduct}
             />
-          ))}
-          {console.log(products)}
+          ))} 
           <br/>
           <button className= "btn2" onClick={generatePdf}>Generate PDF</button>
           {pdfData && (

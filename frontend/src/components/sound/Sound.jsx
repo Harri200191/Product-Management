@@ -9,8 +9,7 @@ const Sound = (WrappedComponent, soundFile) => {
         src: [soundFile],
       });
       sound.play();
-      sound.on('load', () => {
-        console.log('Sound loaded successfully');
+      sound.on('load', () => { 
       });
       
       sound.on('playerror', (id, error) => {

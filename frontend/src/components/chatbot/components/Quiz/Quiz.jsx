@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 import FlashCard from "./FlashCard";
 
-const Quiz = (props) => {
-  console.log(props);
+const Quiz = (props) => { 
   let [questionIndex, setQuestionIndex] = useState(0);
 
   const incrementIndex = () => setQuestionIndex((prev) => (prev += 1));

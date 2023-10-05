@@ -15,13 +15,13 @@
     overflow: hidden;
     width: 400px;
     height: auto;
-    max-height: 1000px;
+    max-height: 200px;
     transition: max-height 1.5s ease-in-out;
   }
   
   /* Open the chatbot box */
   .chatbot-container.open .chatbot-box {
-    max-height: 2000px;
+    max-height: 500px;
     transform: translateY(0);
   }
   

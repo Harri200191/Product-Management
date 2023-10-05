@@ -26,8 +26,7 @@ export const createProduct = createAsyncThunk(
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString();
-      console.log(message);
+        error.toString(); 
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -45,8 +44,7 @@ export const getProducts = createAsyncThunk(
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString();
-      console.log(message);
+        error.toString(); 
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -64,8 +62,7 @@ export const deleteProduct = createAsyncThunk(
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString();
-      console.log(message);
+        error.toString(); 
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -83,8 +80,7 @@ export const getProduct = createAsyncThunk(
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString();
-      console.log(message);
+        error.toString(); 
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -102,8 +98,7 @@ export const updateProduct = createAsyncThunk(
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString();
-      console.log(message);
+        error.toString(); 
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -162,8 +157,7 @@ const productSlice = createSlice({
       .addCase(createProduct.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.isError = false;
-        console.log(action.payload);
+        state.isError = false; 
         state.products.push(action.payload);
         toast.success("Product added successfully");
       })
@@ -179,8 +173,7 @@ const productSlice = createSlice({
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.isError = false;
-        console.log(action.payload);
+        state.isError = false; 
         state.products = action.payload;
       })
       .addCase(getProducts.rejected, (state, action) => {

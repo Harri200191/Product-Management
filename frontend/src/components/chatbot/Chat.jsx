@@ -9,11 +9,11 @@ function Chat() {
   const [userInput, setUserInput] = useState(''); 
   const [botResponse, setBotResponse] = useState('');
  
-  async function query(data) { 
+  async function query(data) {  
     const response = await fetch(
       "https://api-inference.huggingface.co/models/satvikag/chatbot",
       {
-        headers: { Authorization: "Bearer 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"},
+        headers: { Authorization: process.env.REACT_APP_TOKEN},
         method: "POST",
         body: JSON.stringify(data),
       }

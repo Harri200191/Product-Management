@@ -101,8 +101,7 @@ const EditProfile = () => {
         setIsLoading(false);
       }
     
-    } catch (error) { 
-        console.log(error);
+    } catch (error) {  
       setIsLoading(false);
       toast.error(error.message);
     }
