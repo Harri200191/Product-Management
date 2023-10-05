@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "react-chatbot-kit": "^2.1.2"
   },
   "name": "product-management",
   "description": "",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "backend": "nodemon backend/index.js",
     "frontend": "npm start --prefix frontend",

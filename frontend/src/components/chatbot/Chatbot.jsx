@@ -15,9 +15,9 @@ const Chatbots = ({ isOpen, onClose }) => {
   const handleClose = () => {
     setIsChatbotOpen(false);
     onClose();
-  };
+  }; 
 
-  return (
+  return ( 
     <div className={`chatbot-container ${isChatbotOpen ? 'open' : ''}`}>
       <div className="chatbot-header">
         <span className="chatbot-title">Chatbot</span>
@@ -31,6 +31,10 @@ const Chatbots = ({ isOpen, onClose }) => {
           actionProvider = {ActionProvider}
           messageParser = {MessageParser}  
         />
+      </div> 
+      <div>
+        <h1>Chatbot For You</h1>
+        <p>Just to test</p> 
       </div>
     </div>
   );
