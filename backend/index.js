@@ -33,6 +33,30 @@ app.get("/", (req, resp) => {
     resp.send("Home Page");
 });
 
+
+// CHATBOT STUFF
+const { exec } = require('child_process'); 
+const pythonScript = '../Chatbot/Main.py';
+
+app.post('/api/chat', async (req, res) => {
+    const userInput = req.body.userInput; 
+    exec(`python ${pythonScript} ${userInput}`, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error executing Python script: ${error}`);
+          return;
+        }
+      
+        console.log(`Python script output:\n${stdout}`);
+      
+        if (stderr) {
+          console.error(`Python script error:\n${stderr}`);
+        }
+      });
+    res.json({ 
+        msg: "Success!"
+     });
+  });
+
 // USING CUSTOM MIDDLEWARE
 app.use(ErrorHandler);
 

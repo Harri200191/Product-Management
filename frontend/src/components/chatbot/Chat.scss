@@ -1,0 +1,114 @@
+/* Chatbot Container */
+.chatbot-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1000; /* Ensure it's above other content */
+  }
+  
+  /* Chatbot Box */
+  .chatbot-box {
+    background-color: #fff;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    width: 400px;
+    height: auto;
+    max-height: 400px;
+    transition: max-height 1.5s ease-in-out;
+  }
+  
+  /* Open the chatbot box */
+  .chatbot-container.open .chatbot-box {
+    max-height: 600px;
+    transform: translateY(0);
+  }
+  
+  /* Minimize the chatbot box */
+  .chatbot-box.minimized {
+    max-height: 50px;
+  }
+  
+  /* Chatbot Header */
+  .chatbot-header {
+    font-weight: 600;
+    font-size: 25px;
+    background-color: #004992;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  /* Chatbot Content */
+  .chatbot-content {
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  /* Chat Input and Send Button */
+  .chat-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .chat-input button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 50px; /* Makes the button round */
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .chat-input button:hover {
+    background-color: #0056b3;
+    scale: 1.1;
+  }
+  
+  /* Minimize Button */
+  .minimize-button {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .minimize-button:hover {
+    background-color: #819dbc;
+  }
+  
+  /* Toggle Button */
+  .toggle-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Hide the Open Chatbot button when the chatbot is open */
+  .toggle-button.hidden {
+    display: none;
+  }
+  
