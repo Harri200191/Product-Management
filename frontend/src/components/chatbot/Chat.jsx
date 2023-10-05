@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Chat.scss'; 
-import {BsArrowRightCircleFill} from "react-icons/bs"
-import axios from 'axios';
+import {BsArrowRightCircleFill} from "react-icons/bs" 
 
 function Chat() {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
@@ -10,21 +9,46 @@ function Chat() {
   const [userInput, setUserInput] = useState(''); 
   const [botResponse, setBotResponse] = useState('');
  
+  async function query(data) { 
+    const response = await fetch(
+      "https://api-inference.huggingface.co/models/satvikag/chatbot",
+      {
+        headers: { Authorization: "Bearer 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"},
+        method: "POST",
+        body: JSON.stringify(data),
+      }
+    );
+    const result = await response.json();
+    return result;
+  }
  
-  const submitUserInput = async () => {
-    try {
-      const response = await axios.post('/api/chat', { userInput });
-      setBotResponse(response.data);
-    } catch (error) {
-      console.error(error);
+  const submitUserInput = () => { 
+    if (userInput.trim() === '') return;
+
+    // Create a copy of the current messages array
+    const updatedMessages = [...messages];
+  
+    // Add user input to the messages array
+    const userMessage = `You said: "${userInput}"`;
+    updatedMessages.push({ text: userMessage, isUser: true });
+  
+    // Call the API for bot response
+    if (userInput.trim() !== '') {
+      query({ "inputs": userInput, "return_full_text": true }).then((response) => {
+        const botResponse = response.generated_text;
+  
+        // Add bot response to the messages array
+        updatedMessages.push({ text: botResponse, isUser: false });
+  
+        // Update the state with the updated messages array
+        setMessages(updatedMessages);
+      });
     }
-  };
+  
+    setUserInput('');
 
-  const toggleChatbot = () => {
-    setIsChatbotOpen(!isChatbotOpen);
-    setIsMinimized(false); // Reset to open chatbot when clicking the toggle button
   };
-
+ 
   const minimizeChatbot = () => {
     setIsMinimized(!isMinimized);
   };
@@ -38,20 +62,6 @@ function Chat() {
     setUserInput(e.target.value);
   };
 
-  const handleSendMessage = () => {
-    if (userInput.trim() === '') return;
-    addMessage(userInput, true);
-    // Simulate the chatbot's response (replace with actual chatbot logic)
-    simulateChatbotResponse(userInput);
-    setUserInput('');
-  };
-
-  const simulateChatbotResponse = (userInput) => {
-    setTimeout(() => {
-      const botResponse = `You said: "${userInput}"`;
-      addMessage(botResponse);
-    }, 1000);
-  };
 
   return (
     <div className={`chatbot-container ${isChatbotOpen ? 'open' : ''}`}>
@@ -64,11 +74,11 @@ function Chat() {
         </div>
         <div className={`chatbot-content ${isMinimized ? 'minimized' : ''}`}>
           {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`message ${message.isUser ? 'user' : 'bot'}`}
-            >
-              {message.text}
+            <div key={index} className={`message ${message.isUser ? 'user' : 'bot'}`}>
+              <div className={`message-box ${message.isUser ? 'user-box' : 'bot-box'}`}>
+                {message.text} 
+              </div>
+              <br/>
             </div>
           ))}
         </div>
@@ -80,8 +90,7 @@ function Chat() {
               value={userInput}
               onChange={handleUserInput}
             />
-            <button onClick={submitUserInput}><BsArrowRightCircleFill size={18}/></button>
-            <p>{botResponse}</p>
+            <button onClick={submitUserInput}><BsArrowRightCircleFill size={18}/></button> 
           </div>
         )}
       </div>
