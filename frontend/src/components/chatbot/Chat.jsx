@@ -66,7 +66,7 @@ function Chat() {
   return (
     <div className={`chatbot-container ${isChatbotOpen ? 'open' : ''}`}>
       <div className={`chatbot-box ${isMinimized ? 'minimized' : ''}`}>
-        <div className="chatbot-header">
+        <div className={`chatbot-header ${!isMinimized ? 'minimized' : ''}`}>
           Chatbot
           <button className="minimize-button" onClick={minimizeChatbot}>
             {isMinimized ? 'Expand' : 'Minimize'}
@@ -82,7 +82,8 @@ function Chat() {
             </div>
           ))}
         </div>
-        {!isMinimized && (
+      </div>
+      {!isMinimized && (
           <div className="chat-input">
             <input
               type="text"
@@ -93,7 +94,6 @@ function Chat() {
             <button onClick={submitUserInput}><BsArrowRightCircleFill size={18}/></button> 
           </div>
         )}
-      </div>
     </div>
   );
 }
